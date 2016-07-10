@@ -14,14 +14,14 @@ class GitupOpenCommand(sublime_plugin.WindowCommand):
         elif self.window.folders():
             return self.window.folders()[0]
         else:
-            sublime.status_message(__name__ + ': No place to open GitUp to')
+            sublime.status_message('No place to open GitUp to')
             return False
 
     def run(self, *args):
-        sublime.status_message(__name__ + ': running')
+        sublime.status_message('GitUp: running')
         path = self.get_path()
         if not path:
-            sublime.status_message(__name__ + ': No path')
+            sublime.status_message('GitUp: No path')
             return False
         if os.path.isfile(path):
             path = os.path.dirname(path)
