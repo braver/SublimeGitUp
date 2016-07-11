@@ -9,9 +9,7 @@ class GitupOpenCommand(sublime_plugin.WindowCommand):
         return True
 
     def get_path(self):
-        if self.window.active_view():
-            return self.window.active_view().file_name()
-        elif self.window.folders():
+        if self.window.folders():
             return self.window.folders()[0]
         else:
             sublime.status_message('No place to open GitUp to')
