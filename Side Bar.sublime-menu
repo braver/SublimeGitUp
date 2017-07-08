@@ -1,0 +1,10 @@
+[
+	{
+		"id": "SublimeGitUp", "caption": "-"
+	},
+	{
+		"caption": "Open in GitUp",
+		"command": "side_bar_gitup",
+		"args": { "paths": [] }
+	}
+]
