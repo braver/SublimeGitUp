@@ -1,7 +1,9 @@
-import locale
 import os
 import subprocess
-import sublime, sublime_plugin
+
+import sublime
+import sublime_plugin
+
 
 class GitupOpenCommand(sublime_plugin.WindowCommand):
 
@@ -26,6 +28,7 @@ class GitupOpenCommand(sublime_plugin.WindowCommand):
 
         app_path = '/Applications/GitUp.app'
         subprocess.call(['open', '-a', app_path, path])
+
 
 class SideBarGitupCommand(sublime_plugin.WindowCommand):
 
