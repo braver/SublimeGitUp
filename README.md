@@ -10,5 +10,5 @@ Download this to the Packages folder, or install using [Package Control](http://
 
 Example key bindings:
 ```
-    { "keys": ["super+."], "command": "GitUp_open" }
+    { "keys": ["super+."], "command": "gitup_open" }
 ```
