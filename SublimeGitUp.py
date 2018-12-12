@@ -9,6 +9,13 @@ def has_git(path):
     return os.path.exists(os.path.join(path, '.git'))
 
 
+def is_parent(parent, child):
+    if os.path.commonprefix([parent, child]) == parent:
+        return True
+    else:
+        return False
+
+
 class GitupOpenCommand(sublime_plugin.WindowCommand):
 
     def is_enabled(self):
@@ -19,8 +26,7 @@ class GitupOpenCommand(sublime_plugin.WindowCommand):
         if filepath:
             # look for the git root in the sidebar root folders
             for folder in self.window.folders():
-                print(folder)
-                if os.path.commonprefix([folder, filepath]) == folder and has_git(folder):
+                if is_parent(folder, filepath) and has_git(folder):
                     return folder
 
         elif self.window.folders() and has_git(self.window.folders()[0]):
