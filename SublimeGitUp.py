@@ -5,15 +5,25 @@ import sublime
 import sublime_plugin
 
 
+def has_git(path):
+    return os.path.exists(os.path.join(path, '.git'))
+
+
 class GitupOpenCommand(sublime_plugin.WindowCommand):
 
     def is_enabled(self):
         return True
 
     def get_path(self):
-        if self.window.active_view().file_name():
-            return self.window.active_view().file_name()
-        elif self.window.folders():
+        filepath = self.window.active_view().file_name()
+        if filepath:
+            # look for the git root in the sidebar root folders
+            for folder in self.window.folders():
+                print(folder)
+                if os.path.commonprefix([folder, filepath]) == folder and has_git(folder):
+                    return folder
+
+        elif self.window.folders() and has_git(self.window.folders()[0]):
             return self.window.folders()[0]
         else:
             sublime.status_message('No place to open GitUp to')
@@ -34,8 +44,13 @@ class GitupOpenCommand(sublime_plugin.WindowCommand):
 
 class SideBarGitupCommand(sublime_plugin.WindowCommand):
 
-    def is_enabled(self):
-        return True
+    def is_visible(self, paths):
+        for path in paths:
+            return os.path.isdir(path)
+
+    def is_enabled(self, paths):
+        for path in paths:
+            return has_git(path)
 
     def get_path(self, paths):
         try:
