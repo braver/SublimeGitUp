@@ -45,7 +45,7 @@ class GitupOpenCommand(sublime_plugin.WindowCommand):
             path = os.path.dirname(path)
 
         app_path = '/Applications/GitUp.app'
-        subprocess.call(['open', '-a', app_path, path])
+        subprocess.Popen(['open', '-a', app_path, path])
 
 
 class SideBarGitupCommand(sublime_plugin.WindowCommand):
@@ -74,4 +74,4 @@ class SideBarGitupCommand(sublime_plugin.WindowCommand):
             path = os.path.dirname(path)
 
         app_path = '/Applications/GitUp.app'
-        subprocess.call(['open', '-a', app_path, path])
+        subprocess.Popen(['open', '-a', app_path, path])
