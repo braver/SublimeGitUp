@@ -5,15 +5,18 @@ import sublime
 import sublime_plugin
 
 
-def has_git(path):
-    return os.path.exists(os.path.join(path, '.git'))
+def climb_dirs(start_dir):
+    right = True
+    while right:
+        yield start_dir
+        start_dir, right = os.path.split(start_dir)
 
 
-def is_parent(parent, child):
-    if os.path.commonprefix([parent, child]) == parent:
-        return True
-    else:
-        return False
+# look for the git root by traversing up the dir
+def find_git_root(path):
+    for folder in climb_dirs(path):
+        if os.path.exists(os.path.join(folder, '.git')):
+            return folder
 
 
 class GitupOpenCommand(sublime_plugin.WindowCommand):
@@ -24,13 +27,11 @@ class GitupOpenCommand(sublime_plugin.WindowCommand):
     def get_path(self):
         filepath = self.window.active_view().file_name()
         if filepath:
-            # look for the git root in the sidebar root folders
-            for folder in self.window.folders():
-                if is_parent(folder, filepath) and has_git(folder):
-                    return folder
+            return find_git_root(os.path.dirname(filepath))
 
-        elif self.window.folders() and has_git(self.window.folders()[0]):
-            return self.window.folders()[0]
+        elif self.window.folders():
+            return find_git_root(self.window.folders()[0])
+
         else:
             sublime.status_message('No place to open GitUp to')
             return False
@@ -50,17 +51,15 @@ class GitupOpenCommand(sublime_plugin.WindowCommand):
 
 class SideBarGitupCommand(sublime_plugin.WindowCommand):
 
-    def is_visible(self, paths):
-        for path in paths:
-            return os.path.isdir(path)
-
     def is_enabled(self, paths):
         for path in paths:
-            return has_git(path)
+            if find_git_root(path):
+                return True
+        return False
 
     def get_path(self, paths):
         try:
-            return paths[0]
+            return find_git_root(paths[0])
         except IndexError:
             return self.window.active_view().file_name()
 
