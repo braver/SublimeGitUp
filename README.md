@@ -1,7 +1,5 @@
 # SublimeGitUp
 
-![Travis Status](https://travis-ci.com/braver/SublimeGitUp.svg?branch=master)
-
 Very simple plugin to open [GitUp](http://gitup.co/) from [Sublime Text 3](http://www.sublimetext.com/3).
 
 ## Installing
