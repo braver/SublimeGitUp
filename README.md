@@ -1,10 +1,10 @@
 # SublimeGitUp
 
-Very simple plugin to open [GitUp](http://gitup.co/) from [Sublime Text 3](http://www.sublimetext.com/3).
+Very simple plugin to open [GitUp](http://gitup.co/) from [Sublime Text](http://www.sublimetext.com/).
 
 ## Installing
 
-Download this to the Packages folder, or install using [Package Control](http://http://packagecontrol.io).
+Download this to the Packages folder, or install using [Package Control](https://packages.sublimetext.com/packages/GitUp).
 
 Example key bindings:
 ```
